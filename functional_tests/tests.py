@@ -7,11 +7,11 @@ import time
 import unittest
 from selenium import webdriver
 import unittest
-
+from django.test import LiveServerTestCase
 from selenium.webdriver.common.keys import Keys
 
 
-class NewVisitorTest(unittest.TestCase):
+class NewVisitorTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
@@ -26,7 +26,8 @@ class NewVisitorTest(unittest.TestCase):
 
     def test_can_start_a_list_and_retrieve_it_later(self):
         # Edith has heard about a cool new online to-do app. she goes to check out its homepage
-        self.browser.get('http://localhost:8000/app/home')
+        # self.browser.get('http://localhost:8000/app/home')
+        self.browser.get(self.live_server_url+"/app/home")
 
         # She notices the page title and header mention to-do lists
         self.assertIn('To-Do', self.browser.title)
@@ -61,6 +62,7 @@ class NewVisitorTest(unittest.TestCase):
         # the page updates again, and now shows both items on her list
         self.check_for_in_list_table('1: Buy peacock feathers')
         self.check_for_in_list_table('2: Use peacock feathers to make a fly')
+
         # Edith wonders whether the site will remember her list. then she sees
         # that the site has generated a unique URL for her -- there is some explanatory text to that effect
         self.fail('Finish the test')
@@ -69,8 +71,8 @@ class NewVisitorTest(unittest.TestCase):
         # Satisfied, she goes back to sleep
 
 
-if __name__ == '__main__':
-    unittest.main(warnings='ignore')
+
+
 
 
 
