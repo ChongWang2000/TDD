@@ -2,7 +2,7 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
+import os
 import time
 import unittest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
@@ -19,6 +19,9 @@ class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Firefox()
+        staging_server =os.environ.get('STAGING_SERVER')
+        if staging_server:
+            self.live_server_url='http://'+staging_server
 
     def tearDown(self):
         self.browser.quit()  # 1
