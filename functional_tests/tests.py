@@ -4,11 +4,8 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import os
 import time
-import unittest
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
-import unittest
-from django.test import LiveServerTestCase
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import WebDriverException
 
@@ -18,7 +15,7 @@ MAX_WAIT = 10
 class NewVisitorTest(StaticLiveServerTestCase):
 
     def setUp(self):
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
         staging_server =os.environ.get('STAGING_SERVER')
         if staging_server:
             self.live_server_url='http://'+staging_server
@@ -92,7 +89,7 @@ class NewVisitorTest(StaticLiveServerTestCase):
         self.assertRegex(edith_list_url,'/lists/.+')
 
         self.browser.quit()
-        self.browser = webdriver.Firefox()
+        self.browser = webdriver.Chrome()
 
         self.browser.get(self.live_server_url+"/app/home")
         page_text = self.browser.find_element_by_tag_name('body').text
